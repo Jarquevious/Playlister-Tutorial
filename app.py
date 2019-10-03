@@ -1,3 +1,4 @@
+from bson.objectid import ObjectId
 from pymongo import MongoClient
 client = MongoClient()
 db = client.Playlister
@@ -30,7 +31,8 @@ def playlists_submit():
 @app.route('/playlists/<playlist_id>')
 def playlists_show(playlist_id):
     """Show a single playlist."""
-    return f'My ID is {playlist_id}'
+    playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
+    return render_template('playlists_show.html', playlist=playlist)
 
 if __name__== '__main__':
     app.run(debug=True)
