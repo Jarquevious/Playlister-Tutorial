@@ -5,10 +5,7 @@ playlists = db.playlists
 from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
-playlists = [
-    { 'title': 'Cat Videos', 'description': 'Cats acting weird'},
-    { 'title': '80\'s Music', 'description': 'Don\'t stop Believing!'}
-]
+
 
 @app.route('/')
 def playlists_index():
@@ -29,6 +26,11 @@ def playlists_submit():
     }
     playlists.insert_one(playlist)
     return redirect(url_for('playlists_index'))
+
+@app.route('/playlists/<playlist_id>')
+def playlists_show(playlist_id):
+    """Show a single playlist."""
+    return f'My ID is {playlist_id}'
 
 if __name__== '__main__':
     app.run(debug=True)
